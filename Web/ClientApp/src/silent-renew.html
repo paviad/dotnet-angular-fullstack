@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="oidc-client.min.js"></script>
+    <script>
+        console.debug('silent renew', window.location.href);
+        const silentRenew$ = window['silentRenew$'] || (window.parent && window.parent['silentRenew$']);
+        new Oidc.UserManager().signinSilentCallback()
+            .catch((err) => {
+                console.log(err);
+            });
+        if (silentRenew$) {
+            console.debug('silent renew notifying');
+            silentRenew$.next(true);
+        } else {
+            console.debug('silent renew NOT notifying');
+        }
+    </script>
+</body>
+
+</html>
