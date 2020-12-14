@@ -85,7 +85,7 @@ export class AuthService {
     this.mgr.signinRedirectCallback().then(user => {
       this.refreshUser();
       this.router.navigateByUrl(user.state);
-    }).catch(function (e) {
+    }).catch(e => {
       console.error(e);
     });
   }
