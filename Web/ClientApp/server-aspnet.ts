@@ -3,7 +3,7 @@ import 'zone.js/dist/zone-node';
 import { join } from 'path';
 
 import { AppServerModule, renderModule, BackendState, BACKEND_STATE } from './src/main.server';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 
 function app(url: string, stateJson: string) {
   const distFolder = join(process.cwd(), 'dist/ClientApp/browser');
@@ -22,7 +22,7 @@ function app(url: string, stateJson: string) {
     extraProviders: [
       { provide: BACKEND_STATE, useValue: backendState }
     ]
-  }).then(x => console.log(x));
+  }).then(x => writeFileSync('out.html', x));
 }
 
 app(process.argv[2], process.argv[3]);
