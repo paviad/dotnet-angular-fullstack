@@ -1,8 +1,8 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { UserManager, User, UserManagerSettings } from 'oidc-client';
 import { from, Observable, ReplaySubject, Subject, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { isPlatformServer } from '@angular/common';
 import { Router } from '@angular/router';
 import { BackendState } from './backend-state';
@@ -88,5 +88,9 @@ export class AuthService {
     }).catch(e => {
       console.error(e);
     });
+  }
+
+  getAccessToken() {
+    return this.getUser().pipe(map(r => r.access_token));
   }
 }

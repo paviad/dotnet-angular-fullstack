@@ -26,7 +26,7 @@ export const DefaultBackendState: BackendState = {
     deployment: {
         web: 'http://localhost:4200/',
         authority: 'https://localhost:5001/auth',
-        api: 'https://localhost:5003/api/'
+        api: 'https://localhost:5003/'
     },
     antiForgeryToken: {
     },
