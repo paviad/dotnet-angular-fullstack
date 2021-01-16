@@ -39,17 +39,19 @@ namespace Web {
 
             Debug.Print($"path {angularPath} cwd {Environment.CurrentDirectory}\nnode {arguments}");
 
+#if DEBUG
+            var workingDirectory = "ClientApp";
+#else
+            var workingDirectory = "tmp";
+#endif
+
             var processStartInfo = new ProcessStartInfo("node") {
                 Arguments = arguments,
                 UseShellExecute = false,
                 RedirectStandardInput = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
-#if DEBUG
-                WorkingDirectory = "ClientApp",
-#else
-                    WorkingDirectory = "tmp",
-#endif
+                WorkingDirectory = workingDirectory,
             };
 
             var process = Process.Start(processStartInfo);
@@ -57,7 +59,8 @@ namespace Web {
             var stdErr = process.StandardError;
             var stdOut = process.StandardOutput;
 
-            var result = await File.ReadAllTextAsync(Path.Combine("ClientApp", "out.html"));
+            var outPath = Path.Combine(workingDirectory, "out.html");
+            var result = File.Exists(outPath) ? await File.ReadAllTextAsync(outPath) : "";
             var stdOutResult = await stdOut.ReadToEndAsync();
             var stdErrResult = await stdErr.ReadToEndAsync();
             Debug.Print(processStartInfo.Arguments);

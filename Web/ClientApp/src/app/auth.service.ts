@@ -91,6 +91,6 @@ export class AuthService {
   }
 
   getAccessToken() {
-    return this.getUser().pipe(map(r => r.access_token));
+    return this.getUser().pipe(map(r => r && r.access_token));
   }
 }

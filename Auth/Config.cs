@@ -19,6 +19,11 @@ namespace Auth {
                 new ApiScope("scope2")
             };
 
+        public static IEnumerable<ApiResource> ApiResources =>
+            new[] {
+                new ApiResource("api")
+            };
+
         public static IEnumerable<Client> Clients =>
             new[] {
                 // m2m client credentials flow client

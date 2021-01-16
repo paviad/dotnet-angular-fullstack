@@ -14,7 +14,7 @@
         const silentRenew$ = window['silentRenew$'] || (window.parent && window.parent['silentRenew$']);
         new Oidc.UserManager().signinSilentCallback()
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
         if (silentRenew$) {
             console.debug('silent renew notifying');
